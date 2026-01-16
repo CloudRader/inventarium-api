@@ -11,7 +11,7 @@ description = "Inventarium API for inventarisation "
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(24)
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
