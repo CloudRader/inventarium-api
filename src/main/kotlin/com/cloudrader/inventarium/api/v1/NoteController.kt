@@ -3,7 +3,9 @@ package com.cloudrader.inventarium.api.v1
 import com.cloudrader.inventarium.model.Note
 import com.cloudrader.inventarium.repository.NoteRepository
 import org.bson.types.ObjectId
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -22,7 +24,7 @@ class NoteController(
         val title: String,
         val content: String,
         val color: Long,
-        val ownerId: String?
+        val ownerId: String
     )
 
     data class NoteResponse(
@@ -58,6 +60,11 @@ class NoteController(
         return repository.findByOwnerId(ObjectId(ownerId)).map {
             it.toResponse()
         }
+    }
+
+    @DeleteMapping(path = ["/{id}"])
+    fun delete(@PathVariable id: String) {
+        repository.deleteById(ObjectId(id) )
     }
 
     private fun Note.toResponse() : NoteController.NoteResponse {
