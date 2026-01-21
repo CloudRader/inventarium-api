@@ -13,19 +13,19 @@ class JwtAuthFilter(
     private val jwtService: JwtService,
 ): OncePerRequestFilter() {
     override fun doFilterInternal(
-        request: HttpServletRequest?,
-        response: HttpServletResponse?,
-        filterChain: FilterChain?
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        filterChain: FilterChain
     ) {
-        val authHeader = request?.getHeader("Authorization")
+        val authHeader = request.getHeader("Authorization")
         if(authHeader != null && authHeader.startsWith("Bearer ")) {
             if(jwtService.validateAccessToken(authHeader)) {
                 val userId = jwtService.getUserIdFromToken(authHeader)
-                val auth = UsernamePasswordAuthenticationToken(userId, null)
+                val auth = UsernamePasswordAuthenticationToken(userId, null, emptyList())
                 SecurityContextHolder.getContext().authentication = auth
             }
         }
 
-        filterChain?.doFilter(request, response)
+        filterChain.doFilter(request, response)
     }
 }
