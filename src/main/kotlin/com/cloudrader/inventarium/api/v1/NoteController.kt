@@ -25,7 +25,6 @@ class NoteController(
         val title: String,
         val content: String,
         val color: Long,
-        val ownerId: String
     )
 
     data class NoteResponse(
