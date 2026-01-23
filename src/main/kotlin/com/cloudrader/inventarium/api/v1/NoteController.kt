@@ -2,6 +2,8 @@ package com.cloudrader.inventarium.api.v1
 
 import com.cloudrader.inventarium.model.Note
 import com.cloudrader.inventarium.repository.NoteRepository
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
 import org.bson.types.ObjectId
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -22,6 +24,7 @@ class NoteController(
 
     data class NoteRequest(
         val id: String?,
+        @field:NotBlank(message = "Title can't be blank.")
         val title: String,
         val content: String,
         val color: Long,
@@ -37,7 +40,7 @@ class NoteController(
 
     @PostMapping
     fun create(
-        @RequestBody body: NoteRequest
+        @Valid @RequestBody body: NoteRequest
     ): NoteResponse {
         val ownerId = SecurityContextHolder.getContext().authentication!!.principal as String
         val note = repository.save(

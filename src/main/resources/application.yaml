@@ -5,9 +5,9 @@ spring:
   mongodb:
     uri: ${DATABASE_URI}
 
-  security:
-    user:
-      password: test
+  data:
+    mongodb:
+      auto-index-creation: true
 
 jwt:
   secret: ${JWT_SECRET_BASE64}

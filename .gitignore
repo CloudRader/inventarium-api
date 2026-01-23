@@ -86,6 +86,7 @@ fabric.properties
 # that are supposed to be shared within teams.
 
 .idea/*
+/.idea/**
 
 !.idea/codeStyles
 !.idea/runConfigurations
@@ -287,9 +288,6 @@ pyrightconfig.json
 
 ### MacOS files ###
 .DS_Store
-
-## End of https://www.toptal.com/developers/gitignore/api/pycharm+all,visualstudiocode,python
-#/.idea/
 
 ## Mongodb data
 /data/

@@ -24,7 +24,7 @@ class SecurityConfig(
                 auth
                     .requestMatchers("/")
                     .permitAll()
-                    .requestMatchers("/auth/**")
+                    .requestMatchers("/v1/auth/**")
                     .permitAll()
                     .dispatcherTypeMatchers(
                         DispatcherType.ERROR,
