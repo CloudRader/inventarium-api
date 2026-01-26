@@ -2,12 +2,38 @@ spring:
   application:
     name: Inventarium API
 
-  mongodb:
-    uri: ${DATABASE_URI}
+  datasource:
+    url: jdbc:postgresql://localhost:5432/inventarium
+    username: inventarium
+    password: ${INVENTARIUM_PG_PASS}
+    driver-class-name: org.postgresql.Driver
 
-  data:
-    mongodb:
-      auto-index-creation: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000/application/o/inventarium/
+
 
 jwt:
   secret: ${JWT_SECRET_BASE64}
+
+oidc:
+  client-id: ${OIDC_CLIENT_ID}
+  client-secret: ${OIDC_CLIENT_SECRET}
+  user-info-endpoint: http://localhost:9000/application/o/userinfo/
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    oauth:
+      client-id: ${OIDC_CLIENT_ID}
+      client-secret: ${OIDC_CLIENT_SECRET}
+      scopes: openid,profile,email
