@@ -1,5 +1,6 @@
 package com.cloudrader.inventarium.controller.v1
 
+import com.cloudrader.inventarium.dto.UserDto
 import com.cloudrader.inventarium.model.User
 import com.cloudrader.inventarium.service.AuthService
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -24,7 +25,7 @@ class AuthController(
     @PostMapping("/login")
     fun login(
         @AuthenticationPrincipal jwt: Jwt
-    ): User {
+    ): UserDto {
         return authService.login(jwt.tokenValue)
     }
 

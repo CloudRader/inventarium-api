@@ -1,5 +1,6 @@
 package com.cloudrader.inventarium.controller.v1
 
+import com.cloudrader.inventarium.dto.UserDto
 import com.cloudrader.inventarium.model.User
 import com.cloudrader.inventarium.service.UserService
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -16,7 +17,7 @@ class UserController(
     private val userService: UserService,
 ) {
     @GetMapping(path = ["/me"])
-    fun getUser(@AuthenticationPrincipal jwt: Jwt): User {
+    fun getUser(@AuthenticationPrincipal jwt: Jwt): UserDto {
         return userService.getUser(jwt.claims["sub"].toString())
     }
 }
