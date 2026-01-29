@@ -22,6 +22,9 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${OIDC_ISSUER_URI}
+  web:
+    error:
+      include-message: always
 
 oidc:
   client-id: ${OIDC_CLIENT_ID}
