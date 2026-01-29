@@ -7,7 +7,7 @@ services:
       - .env
     environment:
       POSTGRES_DB: ${PG_DB:-authentik}
-      POSTGRES_PASSWORD: ${OIDC_PG_PASS:?database password required}
+      POSTGRES_PASSWORD: ${OIDC_POSTGRES_PASSWORD:?database password required}
       POSTGRES_USER: ${PG_USER:-authentik}
     healthcheck:
       interval: 30s
@@ -37,7 +37,7 @@ services:
     environment:
       AUTHENTIK_POSTGRESQL__HOST: postgresql
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
-      AUTHENTIK_POSTGRESQL__PASSWORD: ${OIDC_PG_PASS}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${OIDC_POSTGRES_PASSWORD}
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
       AUTHENTIK_SECRET_KEY: ${OIDC_SECRET_KEY:?secret key required}
     volumes:
@@ -61,7 +61,7 @@ services:
     environment:
       AUTHENTIK_POSTGRESQL__HOST: postgresql
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
-      AUTHENTIK_POSTGRESQL__PASSWORD: ${OIDC_PG_PASS}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${OIDC_POSTGRES_PASSWORD}
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
       AUTHENTIK_SECRET_KEY: ${OIDC_SECRET_KEY:?secret key required}
     user: root

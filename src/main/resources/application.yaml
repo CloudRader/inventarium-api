@@ -1,6 +1,6 @@
 spring:
   application:
-    name: Inventarium API
+    name: ${APP_NAME}
 
   datasource:
     url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
@@ -11,7 +11,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    show-sql: true
+#    show-sql: true
 
   liquibase:
     enabled: true
@@ -36,3 +36,7 @@ springdoc:
       client-id: ${OIDC_CLIENT_ID}
       client-secret: ${OIDC_CLIENT_SECRET}
       scopes: ${OIDC_SCOPES}
+
+logging:
+  level:
+    root: ${LOG_LEVEL}
