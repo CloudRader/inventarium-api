@@ -2,3 +2,7 @@ databaseChangeLog:
   - include:
       file: changelog/001-initial-db-model.sql
       relativeToChangelogFile: true
+
+  - include:
+      file: changelog/002-create-platform-admin.yaml
+      relativeToChangelogFile: true

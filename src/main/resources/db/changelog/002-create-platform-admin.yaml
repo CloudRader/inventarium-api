@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-create-platform-admin
+      author: DarkRader
+      changes:
+        - insert:
+            tableName: platform_admins
+            columns:
+              - column:
+                  name: id
+                  valueComputed: gen_random_uuid()
+              - column:
+                  name: username
+                  value: "${PLATFORM_ADMIN_USERNAME}"
+              - column:
+                  name: password_hash
+                  value: "${PLATFORM_ADMIN_PASSWORD_HASH}"
