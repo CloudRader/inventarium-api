@@ -36,6 +36,13 @@ class OpenApiConfig {
                                 )
                         )
                 )
+                    .addSecuritySchemes(
+                        "basicAuth",
+                        SecurityScheme()
+                            .type(SecurityScheme.Type.HTTP)
+                            .scheme("basic")
+                            .description("Admin login with username and password")
+                    )
             )
             .addSecurityItem(SecurityRequirement().addList("oauth2"))
 }
