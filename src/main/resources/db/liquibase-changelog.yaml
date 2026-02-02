@@ -6,3 +6,7 @@ databaseChangeLog:
   - include:
       file: changelog/002-create-platform-admin.yaml
       relativeToChangelogFile: true
+
+  - include:
+      file: changelog/003-create-idp-and-tenants-tables.sql
+      relativeToChangelogFile: true
