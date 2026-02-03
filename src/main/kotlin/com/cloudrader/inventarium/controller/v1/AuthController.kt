@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@Tag(name = "auth", description = "Authorisation in OpenID.")
+@Tag(name = "Auth", description = "Authorisation in OpenID.")
 @RequestMapping("/v1/auth")
 class AuthController(
     private val authService: AuthService,
