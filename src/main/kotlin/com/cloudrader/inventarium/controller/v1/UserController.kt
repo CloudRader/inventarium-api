@@ -1,6 +1,6 @@
 package com.cloudrader.inventarium.controller.v1
 
-import com.cloudrader.inventarium.config.annotation.AuthenticatedAccount
+import com.cloudrader.inventarium.controller.responces.AuthenticatedAccount
 import com.cloudrader.inventarium.dto.UserDto
 import com.cloudrader.inventarium.service.UserService
 import io.swagger.v3.oas.annotations.tags.Tag

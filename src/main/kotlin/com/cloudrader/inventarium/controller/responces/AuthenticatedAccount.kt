@@ -1,4 +1,4 @@
-package com.cloudrader.inventarium.config.annotation
+package com.cloudrader.inventarium.controller.responces
 
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses
 @ApiResponses(
     value = [
         ApiResponse(responseCode = "401", description = "Unauthorized", content = [Content()]),
-        ApiResponse(responseCode = "403", description = "Forbidden", content = [Content()])
     ]
 )
-annotation class FullAuthorizedAccount
+annotation class AuthenticatedAccount

@@ -1,25 +1,30 @@
 package com.cloudrader.inventarium.service
 
 import com.cloudrader.inventarium.adapter.repository.TenantRepository
-import com.cloudrader.inventarium.config.exception.ConflictException
+import com.cloudrader.inventarium.config.exception.NotFoundException
+import com.cloudrader.inventarium.config.logging.log
 import com.cloudrader.inventarium.dto.TenantCreateDto
 import com.cloudrader.inventarium.dto.TenantDto
 import com.cloudrader.inventarium.mappers.toDto
 import com.cloudrader.inventarium.mappers.toModel
 import org.springframework.stereotype.Service
+import java.util.UUID
 
 @Service
 class TenantService(
     private val tenantRepository: TenantRepository
 ) {
-    fun createTenant(tenantCreate: TenantCreateDto): TenantDto {
-        val tenantByAlias = tenantRepository.findByAlias(tenantCreate.alias)
-        
-        if (tenantByAlias != null) {
-            val alias = tenantCreate.alias
-            throw ConflictException("Tenant with alias=$alias already exist")
+    fun create(tenantCreate: TenantCreateDto): TenantDto {
+        return tenantRepository.save(tenantCreate.toModel()).toDto()
+    }
+
+    fun get(id: UUID): TenantDto {
+        val tenant = tenantRepository.findById(id).orElseThrow {
+            log.warn("User with id={} not found", id)
+            NotFoundException("Tenant with id=$id not found")
         }
 
-        return tenantRepository.save(tenantCreate.toModel()).toDto()
+        log.debug("User with id={} found successfully", id)
+        return tenant.toDto()
     }
 }
