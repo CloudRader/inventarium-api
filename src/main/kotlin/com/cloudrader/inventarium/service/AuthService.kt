@@ -2,10 +2,9 @@ package com.cloudrader.inventarium.service
 
 import com.cloudrader.inventarium.adapter.openid.ImplOpenIdAuthService
 import com.cloudrader.inventarium.adapter.repository.UserRepository
-import com.cloudrader.inventarium.dto.UserDto
+import com.cloudrader.inventarium.dto.user.UserDto
 import com.cloudrader.inventarium.mappers.toDto
 import com.cloudrader.inventarium.mappers.toModel
-import com.cloudrader.inventarium.model.User
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 

@@ -3,8 +3,8 @@ package com.cloudrader.inventarium.service
 import com.cloudrader.inventarium.adapter.repository.TenantRepository
 import com.cloudrader.inventarium.config.exception.NotFoundException
 import com.cloudrader.inventarium.config.logging.log
-import com.cloudrader.inventarium.dto.TenantCreateDto
-import com.cloudrader.inventarium.dto.TenantDto
+import com.cloudrader.inventarium.dto.tenant.TenantCreateDto
+import com.cloudrader.inventarium.dto.tenant.TenantDto
 import com.cloudrader.inventarium.mappers.toDto
 import com.cloudrader.inventarium.mappers.toModel
 import org.springframework.stereotype.Service

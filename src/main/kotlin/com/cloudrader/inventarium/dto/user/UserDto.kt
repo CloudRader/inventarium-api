@@ -1,4 +1,4 @@
-package com.cloudrader.inventarium.dto
+package com.cloudrader.inventarium.dto.user
 
 data class UserDto(
     val id: String,

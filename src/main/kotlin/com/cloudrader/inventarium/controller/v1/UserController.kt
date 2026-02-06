@@ -1,7 +1,7 @@
 package com.cloudrader.inventarium.controller.v1
 
 import com.cloudrader.inventarium.controller.responces.AuthenticatedAccount
-import com.cloudrader.inventarium.dto.UserDto
+import com.cloudrader.inventarium.dto.user.UserDto
 import com.cloudrader.inventarium.service.UserService
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus

@@ -1,7 +1,7 @@
 package com.cloudrader.inventarium.mappers
 
-import com.cloudrader.inventarium.dto.TenantCreateDto
-import com.cloudrader.inventarium.dto.TenantDto
+import com.cloudrader.inventarium.dto.tenant.TenantCreateDto
+import com.cloudrader.inventarium.dto.tenant.TenantDto
 import com.cloudrader.inventarium.model.Tenant
 
 fun Tenant.toDto(): TenantDto {

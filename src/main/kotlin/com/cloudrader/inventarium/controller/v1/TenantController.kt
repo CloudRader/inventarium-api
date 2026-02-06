@@ -3,8 +3,8 @@ package com.cloudrader.inventarium.controller.v1
 import com.cloudrader.inventarium.controller.responces.AuthenticatedAccount
 import com.cloudrader.inventarium.controller.responces.ConflictResponse
 import com.cloudrader.inventarium.controller.responces.NotFoundResponse
-import com.cloudrader.inventarium.dto.TenantCreateDto
-import com.cloudrader.inventarium.dto.TenantDto
+import com.cloudrader.inventarium.dto.tenant.TenantCreateDto
+import com.cloudrader.inventarium.dto.tenant.TenantDto
 import com.cloudrader.inventarium.service.TenantService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement

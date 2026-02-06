@@ -1,7 +1,7 @@
 package com.cloudrader.inventarium.mappers
 
-import com.cloudrader.inventarium.dto.UserDto
-import com.cloudrader.inventarium.dto.UserInfo
+import com.cloudrader.inventarium.dto.user.UserDto
+import com.cloudrader.inventarium.dto.user.UserInfoOpenIdDto
 import com.cloudrader.inventarium.model.User
 
 fun User.toDto(): UserDto {
@@ -25,7 +25,7 @@ fun UserDto.toModel(): User {
     )
 }
 
-fun UserInfo.toModel(): User {
+fun UserInfoOpenIdDto.toModel(): User {
     return User(
         id = this.sub,
         username = this.preferredUsername,

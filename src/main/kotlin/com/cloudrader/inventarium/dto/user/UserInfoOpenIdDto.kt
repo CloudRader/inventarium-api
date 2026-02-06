@@ -1,8 +1,8 @@
-package com.cloudrader.inventarium.dto
+package com.cloudrader.inventarium.dto.user
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class UserInfo(
+data class UserInfoOpenIdDto(
     @JsonProperty("sub")
     val sub: String,
     @JsonProperty("preferred_username")

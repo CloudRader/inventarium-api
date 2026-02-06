@@ -1,6 +1,6 @@
 package com.cloudrader.inventarium.adapter.openid
 
-import com.cloudrader.inventarium.dto.UserInfo
+import com.cloudrader.inventarium.dto.user.UserInfoOpenIdDto
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToMono
@@ -14,14 +14,14 @@ class ImplOpenIdAuthService(
         TODO("Not implemented yet")
     }
 
-    override fun getUserInfo(token: String): UserInfo {
+    override fun getUserInfo(token: String): UserInfoOpenIdDto {
         return webClient.get()
             .uri("http://localhost:9000/application/o/userinfo/")
             .headers { headers ->
                 headers.setBearerAuth(token)
             }
             .retrieve()
-            .bodyToMono<UserInfo>()
+            .bodyToMono<UserInfoOpenIdDto>()
             .block() ?: throw IllegalStateException("Empty responce from IdP")
     }
 

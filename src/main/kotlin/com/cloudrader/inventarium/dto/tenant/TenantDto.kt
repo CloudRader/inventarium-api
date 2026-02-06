@@ -1,12 +1,7 @@
-package com.cloudrader.inventarium.dto
+package com.cloudrader.inventarium.dto.tenant
 
-import java.util.UUID
 import java.time.Instant
-
-data class TenantCreateDto(
-    val name: String,
-    val alias: String,
-)
+import java.util.UUID
 
 data class TenantDto(
     val id: UUID,
