@@ -25,9 +25,14 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${OIDC_ISSUER_URI}
+
   web:
     error:
       include-message: always
+
+security:
+  encryption:
+    master-key: ${APP_MASTER_KEY}
 
 oidc:
   client-id: ${OIDC_CLIENT_ID}
