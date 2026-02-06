@@ -1,14 +1,23 @@
-package com.cloudrader.inventarium.adapter.openid
+package com.cloudrader.inventarium.adapter.identityprovider
 
+import com.cloudrader.inventarium.dto.identityprovider.IdentityProviderIssuerInfoDto
 import com.cloudrader.inventarium.dto.user.UserInfoOpenIdDto
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToMono
 
 @Service
-class ImplOpenIdAuthService(
+class OpenIdConnectClient(
     private val webClient: WebClient
-): OpenIdAuthService {
+): IdentityProviderClient {
+
+    override fun getIssuerInfo(issuerUrl: String): IdentityProviderIssuerInfoDto {
+        return webClient.get()
+            .uri(issuerUrl)
+            .retrieve()
+            .bodyToMono<IdentityProviderIssuerInfoDto>()
+            .block() ?: throw IllegalStateException("Bad gateway from IdP")
+    }
 
     override fun decodeToken(token: String): Map<String, Any> {
         TODO("Not implemented yet")
@@ -22,7 +31,7 @@ class ImplOpenIdAuthService(
             }
             .retrieve()
             .bodyToMono<UserInfoOpenIdDto>()
-            .block() ?: throw IllegalStateException("Empty responce from IdP")
+            .block() ?: throw IllegalStateException("Empty response from IdP")
     }
 
     override fun logout(refreshToken: String) {
