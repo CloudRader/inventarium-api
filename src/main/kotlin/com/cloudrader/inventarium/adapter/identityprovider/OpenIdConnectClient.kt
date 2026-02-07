@@ -11,9 +11,9 @@ class OpenIdConnectClient(
     private val webClient: WebClient
 ): IdentityProviderClient {
 
-    override fun getIssuerInfo(issuerUrl: String): IdentityProviderIssuerInfoDto {
+    override fun getIssuerInfo(configurationEndpoint: String): IdentityProviderIssuerInfoDto {
         return webClient.get()
-            .uri(issuerUrl)
+            .uri(configurationEndpoint)
             .retrieve()
             .bodyToMono<IdentityProviderIssuerInfoDto>()
             .block() ?: throw IllegalStateException("Bad gateway from IdP")

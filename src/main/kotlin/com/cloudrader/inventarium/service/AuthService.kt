@@ -1,6 +1,6 @@
 package com.cloudrader.inventarium.service
 
-import com.cloudrader.inventarium.adapter.openid.ImplOpenIdAuthService
+import com.cloudrader.inventarium.adapter.identityprovider.OpenIdConnectClient
 import com.cloudrader.inventarium.adapter.repository.UserRepository
 import com.cloudrader.inventarium.dto.user.UserDto
 import com.cloudrader.inventarium.mappers.toDto
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 @Service
 class AuthService(
     private val userRepository: UserRepository,
-    private val openIdAuthService: ImplOpenIdAuthService
+    private val openIdAuthService: OpenIdConnectClient
 ) {
     fun login (token: String): UserDto {
         val userInfo = openIdAuthService.getUserInfo(token)

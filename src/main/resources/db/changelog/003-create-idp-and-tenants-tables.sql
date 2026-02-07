@@ -22,10 +22,13 @@ CREATE TABLE identity_providers
     client_id              VARCHAR(64)  NOT NULL,
     client_secret_hashed   VARCHAR(255) NOT NULL,
 
+    configuration_endpoint VARCHAR(255) NOT NULL,
+
     issuer                 VARCHAR(255) NOT NULL,
     authorization_endpoint VARCHAR(100) NOT NULL,
     token_endpoint         VARCHAR(100) NOT NULL,
     userinfo_endpoint      VARCHAR(255) NOT NULL,
+    end_session_endpoint   VARCHAR(255) NOT NULL,
     jwks_uri               VARCHAR(255) NOT NULL,
     scopes_supported       VARCHAR(255) NOT NULL,
 

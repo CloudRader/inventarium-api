@@ -4,7 +4,7 @@ import com.cloudrader.inventarium.dto.identityprovider.IdentityProviderIssuerInf
 import com.cloudrader.inventarium.dto.user.UserInfoOpenIdDto
 
 interface IdentityProviderClient {
-    fun getIssuerInfo(issuerUrl: String): IdentityProviderIssuerInfoDto
+    fun getIssuerInfo(configurationEndpoint: String): IdentityProviderIssuerInfoDto
 
     fun decodeToken(token: String): Map<String, Any>
 

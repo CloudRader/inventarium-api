@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@Tag(name = "well-known", description = "Application health and readiness endpoints")
+@Tag(name = "Well Known", description = "Application health and readiness endpoints")
 @RequestMapping("/.well-known")
 class WellKnownController {
 
