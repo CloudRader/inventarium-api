@@ -8,7 +8,7 @@ interface IdentityProviderClient {
 
     fun decodeToken(token: String): Map<String, Any>
 
-    fun getUserInfo(token: String): UserInfoOpenIdDto
+    fun getUserInfo(tenantAlias: String, token: String): UserInfoOpenIdDto
 
     fun logout(refreshToken: String)
 }

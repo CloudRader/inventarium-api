@@ -2,6 +2,7 @@ package com.cloudrader.inventarium.controller.v1
 
 import com.cloudrader.inventarium.adapter.repository.IdentityProviderRepository
 import com.cloudrader.inventarium.controller.responces.ConflictResponse
+import com.cloudrader.inventarium.controller.responces.NotFoundResponse
 import com.cloudrader.inventarium.dto.identityprovider.IdentityProviderCreateDto
 import com.cloudrader.inventarium.service.IdentityProviderService
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -22,6 +23,7 @@ class IdentityProviderController(
 
     @PostMapping
     @ConflictResponse
+    @NotFoundResponse
     @ResponseStatus(HttpStatus.CREATED)
     fun create(
         @PathVariable tenantAlias: String,

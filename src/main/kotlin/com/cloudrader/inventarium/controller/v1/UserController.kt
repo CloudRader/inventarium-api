@@ -5,7 +5,6 @@ import com.cloudrader.inventarium.dto.user.UserDto
 import com.cloudrader.inventarium.service.UserService
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.web.bind.annotation.GetMapping
@@ -22,7 +21,9 @@ class UserController(
 ) {
     @GetMapping(path = ["/me"])
     @ResponseStatus(HttpStatus.OK)
-    fun getMe(@AuthenticationPrincipal jwt: Jwt): ResponseEntity<UserDto> {
-        return ResponseEntity.ok(userService.getUser(jwt.claims["sub"].toString()))
+    fun getMe(
+        @AuthenticationPrincipal jwt: Jwt,
+    ): UserDto {
+        return userService.getUser(jwt.claims["sub"].toString())
     }
 }

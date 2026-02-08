@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service
 @Service
 class AuthService(
     private val userRepository: UserRepository,
-    private val openIdAuthService: OpenIdConnectClient
+    private val openIdAuthService: OpenIdConnectClient,
 ) {
-    fun login (token: String): UserDto {
-        val userInfo = openIdAuthService.getUserInfo(token)
+    fun login (tenantAlias: String, token: String): UserDto {
+        val userInfo = openIdAuthService.getUserInfo(tenantAlias, token)
 
         val getUser = userRepository.findByIdOrNull(userInfo.sub)
 

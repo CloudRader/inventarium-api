@@ -1,5 +1,7 @@
 package com.cloudrader.inventarium.adapter.identityprovider
 
+import com.cloudrader.inventarium.adapter.repository.IdentityProviderRepository
+import com.cloudrader.inventarium.config.exception.NotFoundException
 import com.cloudrader.inventarium.dto.identityprovider.IdentityProviderIssuerInfoDto
 import com.cloudrader.inventarium.dto.user.UserInfoOpenIdDto
 import org.springframework.stereotype.Service
@@ -8,7 +10,8 @@ import org.springframework.web.reactive.function.client.bodyToMono
 
 @Service
 class OpenIdConnectClient(
-    private val webClient: WebClient
+    private val webClient: WebClient,
+    private val identityProviderRepository: IdentityProviderRepository,
 ): IdentityProviderClient {
 
     override fun getIssuerInfo(configurationEndpoint: String): IdentityProviderIssuerInfoDto {
@@ -23,9 +26,12 @@ class OpenIdConnectClient(
         TODO("Not implemented yet")
     }
 
-    override fun getUserInfo(token: String): UserInfoOpenIdDto {
+    override fun getUserInfo(tenantAlias: String, token: String): UserInfoOpenIdDto {
+        val userInfoEndpoint = identityProviderRepository.findByAlias(tenantAlias)
+            ?: throw NotFoundException("Tenant with alias '$tenantAlias' not found")
+
         return webClient.get()
-            .uri("http://localhost:9000/application/o/userinfo/")
+            .uri(userInfoEndpoint.userinfoEndpoint)
             .headers { headers ->
                 headers.setBearerAuth(token)
             }
