@@ -31,7 +31,7 @@ class TenantController(
     @PostMapping
     @ConflictResponse
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(
+    suspend fun create(
         tenantCreate: TenantCreateDto
     ): TenantDto {
         return tenantService.create(tenantCreate)
@@ -40,7 +40,7 @@ class TenantController(
     @GetMapping("/{id}")
     @NotFoundResponse
     @ResponseStatus(HttpStatus.OK)
-    fun get(
+    suspend fun get(
         @PathVariable id: UUID
     ): TenantDto {
         return tenantService.get(id)

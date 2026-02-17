@@ -1,5 +1,6 @@
 package com.cloudrader.inventarium
 
+import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
@@ -7,5 +8,7 @@ import org.springframework.boot.runApplication
 class InventariumApiApplication
 
 fun main(args: Array<String>) {
-	runApplication<InventariumApiApplication>(*args)
+	runApplication<InventariumApiApplication>(*args) {
+		setWebApplicationType(WebApplicationType.REACTIVE)
+	}
 }

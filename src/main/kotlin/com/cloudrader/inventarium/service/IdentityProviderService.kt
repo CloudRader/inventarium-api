@@ -17,7 +17,7 @@ class IdentityProviderService(
     private val openIdConnectClient: OpenIdConnectClient,
     private val secretEncryptionService: AesSecretEncryptionService
 ) {
-    fun create(tenantAlias: String, identityProviderCreate: IdentityProviderCreateDto): Any {
+    suspend fun create(tenantAlias: String, identityProviderCreate: IdentityProviderCreateDto): Any {
         val identityProviderInfo = openIdConnectClient.getIssuerInfo(
             identityProviderCreate.configurationEndpoint
         )

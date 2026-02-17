@@ -13,7 +13,7 @@ class AuthService(
     private val userRepository: UserRepository,
     private val openIdAuthService: OpenIdConnectClient,
 ) {
-    fun login (tenantAlias: String, token: String): UserDto {
+    suspend fun login (tenantAlias: String, token: String): UserDto {
         val userInfo = openIdAuthService.getUserInfo(tenantAlias, token)
 
         val getUser = userRepository.findByIdOrNull(userInfo.sub)

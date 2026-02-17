@@ -21,7 +21,7 @@ class UserController(
 ) {
     @GetMapping(path = ["/me"])
     @ResponseStatus(HttpStatus.OK)
-    fun getMe(
+    suspend fun getMe(
         @AuthenticationPrincipal jwt: Jwt,
     ): UserDto {
         return userService.getUser(jwt.claims["sub"].toString())

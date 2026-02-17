@@ -14,11 +14,11 @@ import java.util.UUID
 class TenantService(
     private val tenantRepository: TenantRepository
 ) {
-    fun create(tenantCreate: TenantCreateDto): TenantDto {
+    suspend fun create(tenantCreate: TenantCreateDto): TenantDto {
         return tenantRepository.save(tenantCreate.toModel()).toDto()
     }
 
-    fun get(id: UUID): TenantDto {
+    suspend fun get(id: UUID): TenantDto {
         val tenant = tenantRepository.findById(id).orElseThrow {
             log.warn("User with id={} not found", id)
             NotFoundException("Tenant with id=$id not found")

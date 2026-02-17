@@ -23,7 +23,7 @@ class AuthController(
     @PostMapping("/login")
     @NotFoundResponse
     @ResponseStatus(HttpStatus.OK)
-    fun login(
+    suspend fun login(
         @AuthenticationPrincipal jwt: Jwt,
         @PathVariable tenantAlias: String,
     ): UserDto {

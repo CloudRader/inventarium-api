@@ -25,7 +25,7 @@ class IdentityProviderController(
     @ConflictResponse
     @NotFoundResponse
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(
+    suspend fun create(
         @PathVariable tenantAlias: String,
         @RequestBody identityProviderCreate: IdentityProviderCreateDto
     ): Any {

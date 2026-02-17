@@ -16,7 +16,7 @@ class WellKnownController {
         description = "Liveness probe used to verify that the application process is running."
     )
     @GetMapping("/live")
-    fun live() {
+    suspend fun live() {
         // OK
     }
 
@@ -25,7 +25,7 @@ class WellKnownController {
         description = "Readiness probe used to determine whether the application is ready to accept incoming requests."
     )
     @GetMapping("/ready")
-    fun ready() {
+    suspend fun ready() {
         // OK
     }
 }
