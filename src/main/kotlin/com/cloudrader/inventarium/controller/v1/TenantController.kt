@@ -25,9 +25,9 @@ import java.util.UUID
 class TenantController(
     private val tenantService: TenantService
 ) {
-    @Operation(
-        security = [SecurityRequirement(name = "basicAuth")]
-    )
+//    @Operation(
+//        security = [SecurityRequirement(name = "basicAuth")]
+//    )
     @PostMapping
     @ConflictResponse
     @ResponseStatus(HttpStatus.CREATED)
