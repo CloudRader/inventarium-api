@@ -1,22 +1,20 @@
 package com.cloudrader.inventarium.model
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Table
+import org.springframework.data.relational.core.mapping.Column
 import java.time.Instant
 import java.util.UUID
 
-@Entity
 @Table(name = "tenants")
 class Tenant(
     @Id val id: UUID = UUID.randomUUID(),
-    @Column(nullable = false)
+    @Column("name")
     val name: String = "",
-    @Column(unique = true, nullable = false)
+    @Column("alias")
     val alias: String = "",
-    @Column
+    @Column("created_at")
     val createdAt: Instant = Instant.now(),
-    @Column
+    @Column("updated_at")
     val updatedAt: Instant? = null,
 )

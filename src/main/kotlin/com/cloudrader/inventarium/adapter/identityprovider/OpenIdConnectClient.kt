@@ -4,6 +4,7 @@ import com.cloudrader.inventarium.adapter.repository.IdentityProviderRepository
 import com.cloudrader.inventarium.config.exception.NotFoundException
 import com.cloudrader.inventarium.dto.identityprovider.IdentityProviderIssuerInfoDto
 import com.cloudrader.inventarium.dto.user.UserInfoOpenIdDto
+import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToMono
@@ -14,7 +15,7 @@ class OpenIdConnectClient(
     private val identityProviderRepository: IdentityProviderRepository,
 ): IdentityProviderClient {
 
-    override fun getIssuerInfo(configurationEndpoint: String): IdentityProviderIssuerInfoDto {
+    override suspend fun getIssuerInfo(configurationEndpoint: String): IdentityProviderIssuerInfoDto {
         return webClient.get()
             .uri(configurationEndpoint)
             .retrieve()
@@ -22,13 +23,13 @@ class OpenIdConnectClient(
             .block() ?: throw IllegalStateException("Bad gateway from IdP")
     }
 
-    override fun decodeToken(token: String): Map<String, Any> {
+    override suspend fun decodeToken(token: String): Map<String, Any> {
         TODO("Not implemented yet")
     }
 
-    override fun getUserInfo(tenantAlias: String, token: String): UserInfoOpenIdDto {
+    override suspend fun getUserInfo(tenantAlias: String, token: String): UserInfoOpenIdDto {
         val userInfoEndpoint = identityProviderRepository.findByAlias(tenantAlias)
-            ?: throw NotFoundException("Tenant with alias '$tenantAlias' not found")
+            .awaitSingleOrNull() ?: throw NotFoundException("Tenant with alias '$tenantAlias' not found")
 
         return webClient.get()
             .uri(userInfoEndpoint.userinfoEndpoint)
@@ -40,7 +41,7 @@ class OpenIdConnectClient(
             .block() ?: throw IllegalStateException("Empty response from IdP")
     }
 
-    override fun logout(refreshToken: String) {
+    override suspend fun logout(refreshToken: String) {
         TODO("Not implemented yet")
     }
 }

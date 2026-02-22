@@ -1,22 +1,20 @@
 package com.cloudrader.inventarium.model
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Table
+import org.springframework.data.relational.core.mapping.Column
 
 
-@Entity
 @Table(name = "users")
  class User(
     @Id var id: String = "",
-    @Column(nullable = false, unique = true)
+    @Column("username")
     var username: String = "",
-    @Column(nullable = false)
+    @Column("first_name")
     var firstName: String = "",
-    @Column(nullable = false)
+    @Column("second_name")
     var secondName: String = "",
-    @Column(nullable = false, unique = true)
+    @Column("email")
     var email: String = "",
 ) {
     val fullName: String

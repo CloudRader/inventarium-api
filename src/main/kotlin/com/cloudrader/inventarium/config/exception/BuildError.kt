@@ -1,12 +1,12 @@
 package com.cloudrader.inventarium.config.exception
 
-import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.server.ServerWebExchange
 
 fun buildError(
     ex: Exception,
-    request: HttpServletRequest,
+    exchange: ServerWebExchange,
     status: HttpStatus
 ): ResponseEntity<ApiError> {
 
@@ -14,7 +14,7 @@ fun buildError(
         status = status.value(),
         error = status.reasonPhrase,
         message = ex.message ?: "Unexpected error",
-        path = request.requestURI
+        path = exchange.request.path.value()
     )
 
     return ResponseEntity.status(status).body(body)

@@ -1,48 +1,46 @@
 package com.cloudrader.inventarium.model
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Table
+import org.springframework.data.relational.core.mapping.Column
 import java.util.UUID
 
-@Entity
 @Table(name = "identity_providers")
 class IdentityProvider(
     @Id val id: UUID = UUID.randomUUID(),
 
-    @Column(name = "tenant_id", nullable = false)
+    @Column("tenant_id")
     val tenantId: UUID = UUID.randomUUID(),
 
-    @Column(nullable = false)
+    @Column("type")
     var type: String = "",
-    @Column(nullable = false)
+    @Column("name")
     var name: String = "",
-    @Column(nullable = false)
+    @Column("alias")
     var alias: String = "",
 
-    @Column(nullable = false, unique = true)
+    @Column("client_id")
     val clientId: String = "",
-    @Column(nullable = false)
+    @Column("client_secret_hashed")
     val clientSecretHashed: String = "",
 
-    @Column(nullable = false)
+    @Column("configuration_endpoint")
     val configurationEndpoint: String = "",
-    @Column(nullable = false)
+    @Column("issuer")
     val issuer: String = "",
-    @Column(nullable = false)
+    @Column("authorization_endpoint")
     val authorizationEndpoint: String = "",
-    @Column(nullable = false)
+    @Column("token_endpoint")
     val tokenEndpoint: String = "",
-    @Column(nullable = false)
+    @Column("userinfo_endpoint")
     val userinfoEndpoint: String = "",
-    @Column(nullable = false)
+    @Column("end_session_endpoint")
     val endSessionEndpoint: String = "",
-    @Column(nullable = false)
+    @Column("jwks_uri")
     val jwksUri: String = "",
-    @Column(nullable = false)
+    @Column("scopes_supported")
     val scopesSupported: String = "",
 
-    @Column(nullable = false)
+    @Column("enabled")
     val enabled: Boolean = true,
 )

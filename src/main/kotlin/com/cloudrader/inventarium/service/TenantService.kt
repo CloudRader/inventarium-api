@@ -7,6 +7,8 @@ import com.cloudrader.inventarium.dto.tenant.TenantCreateDto
 import com.cloudrader.inventarium.dto.tenant.TenantDto
 import com.cloudrader.inventarium.mappers.toDto
 import com.cloudrader.inventarium.mappers.toModel
+import kotlinx.coroutines.reactor.awaitSingle
+import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -15,13 +17,14 @@ class TenantService(
     private val tenantRepository: TenantRepository
 ) {
     suspend fun create(tenantCreate: TenantCreateDto): TenantDto {
-        return tenantRepository.save(tenantCreate.toModel()).toDto()
+        return tenantRepository.save(tenantCreate.toModel()).awaitSingle().toDto()
     }
 
     suspend fun get(id: UUID): TenantDto {
-        val tenant = tenantRepository.findById(id).orElseThrow {
+        val tenant = tenantRepository.findById(id)
+            .awaitSingleOrNull() ?: run {
             log.warn("User with id={} not found", id)
-            NotFoundException("Tenant with id=$id not found")
+            throw NotFoundException("Tenant with id=$id not found")
         }
 
         log.debug("User with id={} found successfully", id)

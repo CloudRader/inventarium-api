@@ -4,11 +4,11 @@ import com.cloudrader.inventarium.dto.identityprovider.IdentityProviderIssuerInf
 import com.cloudrader.inventarium.dto.user.UserInfoOpenIdDto
 
 interface IdentityProviderClient {
-    fun getIssuerInfo(configurationEndpoint: String): IdentityProviderIssuerInfoDto
+    suspend fun getIssuerInfo(configurationEndpoint: String): IdentityProviderIssuerInfoDto
 
-    fun decodeToken(token: String): Map<String, Any>
+    suspend fun decodeToken(token: String): Map<String, Any>
 
-    fun getUserInfo(tenantAlias: String, token: String): UserInfoOpenIdDto
+    suspend fun  getUserInfo(tenantAlias: String, token: String): UserInfoOpenIdDto
 
-    fun logout(refreshToken: String)
+    suspend fun logout(refreshToken: String)
 }

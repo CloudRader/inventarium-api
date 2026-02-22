@@ -8,6 +8,8 @@ import com.cloudrader.inventarium.dto.identityprovider.IdentityProviderCreateDto
 import com.cloudrader.inventarium.mappers.toDto
 import com.cloudrader.inventarium.mappers.toModel
 import com.cloudrader.inventarium.utils.security.AesSecretEncryptionService
+import kotlinx.coroutines.reactor.awaitSingle
+import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Service
 
 @Service
@@ -23,11 +25,11 @@ class IdentityProviderService(
         )
 
         val tenant = tenantRepository.findByAlias(tenantAlias)
-            ?: throw NotFoundException("Tenant with alias '$tenantAlias' not found")
+            .awaitSingleOrNull() ?: throw NotFoundException("Tenant with alias '$tenantAlias' not found")
 
         val encryptedSecret = secretEncryptionService.encrypt(identityProviderCreate.clientSecret)
 
         return identityProviderRepository.save(identityProviderCreate
-            .toModel(tenant.id, encryptedSecret, identityProviderInfo)).toDto()
+            .toModel(tenant.id, encryptedSecret, identityProviderInfo)).awaitSingle().toDto()
     }
 }

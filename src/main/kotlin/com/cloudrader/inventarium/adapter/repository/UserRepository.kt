@@ -1,8 +1,9 @@
 package com.cloudrader.inventarium.adapter.repository
 
 import com.cloudrader.inventarium.model.User
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.reactive.ReactiveCrudRepository
+import reactor.core.publisher.Mono
 
-interface UserRepository: JpaRepository<User, String> {
-    fun findByEmail(email: String): User?
+interface UserRepository: ReactiveCrudRepository<User, String> {
+    fun findByEmail(email: String): Mono<User>
 }

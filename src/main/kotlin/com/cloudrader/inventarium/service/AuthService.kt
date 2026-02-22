@@ -5,7 +5,8 @@ import com.cloudrader.inventarium.adapter.repository.UserRepository
 import com.cloudrader.inventarium.dto.user.UserDto
 import com.cloudrader.inventarium.mappers.toDto
 import com.cloudrader.inventarium.mappers.toModel
-import org.springframework.data.repository.findByIdOrNull
+import kotlinx.coroutines.reactor.awaitSingle
+import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Service
 
 @Service
@@ -16,12 +17,12 @@ class AuthService(
     suspend fun login (tenantAlias: String, token: String): UserDto {
         val userInfo = openIdAuthService.getUserInfo(tenantAlias, token)
 
-        val getUser = userRepository.findByIdOrNull(userInfo.sub)
+        val getUser = userRepository.findById(userInfo.sub).awaitSingleOrNull()
 
         if (getUser != null) {
             return getUser.toDto()
         }
 
-        return userRepository.save(userInfo.toModel()).toDto()
+        return userRepository.save(userInfo.toModel()).awaitSingle().toDto()
     }
 }

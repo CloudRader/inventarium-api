@@ -1,40 +1,43 @@
 package com.cloudrader.inventarium.config.logging
 
-import jakarta.servlet.FilterChain
-import jakarta.servlet.http.HttpServletRequest
-import jakarta.servlet.http.HttpServletResponse
 import org.jboss.logging.MDC
 import org.springframework.stereotype.Component
-import org.springframework.web.filter.OncePerRequestFilter
+import org.springframework.web.server.ServerWebExchange
+import org.springframework.web.server.WebFilter
+import org.springframework.web.server.WebFilterChain
+import reactor.core.publisher.Mono
 import java.util.UUID
 
 @Component
-class RequestLoggingFilter : OncePerRequestFilter() {
+class RequestLoggingFilter : WebFilter {
 
-    override fun doFilterInternal(
-        request: HttpServletRequest,
-        response: HttpServletResponse,
-        filterChain: FilterChain
-    ) {
+    override fun filter(
+        exchange: ServerWebExchange,
+        chain: WebFilterChain
+    ): Mono<Void> {
         val requestId = UUID.randomUUID().toString()
+        val request = exchange.request
+        val response = exchange.response
+
         MDC.put("requestId", requestId)
-        response.setHeader("X-Request-Id", requestId)
+        response.headers.add("X-Request-Id", requestId)
 
         val start = System.currentTimeMillis()
 
-        try {
-            filterChain.doFilter(request, response)
-        } finally {
-            val duration = System.currentTimeMillis() - start
-            log.info(
-                "HTTP {} {} -> {} ({} ms), requestId={}",
-                request.method,
-                request.requestURI,
-                response.status,
-                duration,
-                MDC.get("requestId")
-            )
-            MDC.clear()
-        }
+        return chain.filter(exchange)
+            .doFinally {
+                val duration = System.currentTimeMillis() - start
+
+                log.info(
+                    "HTTP {} {} -> {} ({} ms), requestId={}",
+                    request.method,
+                    request.path.value(),
+                    response.statusCode?.value() ?: 200,
+                    duration,
+                    requestId
+                )
+
+                MDC.clear()
+            }
     }
 }
