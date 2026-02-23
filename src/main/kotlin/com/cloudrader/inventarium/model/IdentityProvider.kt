@@ -43,4 +43,7 @@ class IdentityProvider(
 
     @Column("enabled")
     val enabled: Boolean = true,
+
+    @Column("primary_provider")
+    val primaryProvider: Boolean = false,
 )

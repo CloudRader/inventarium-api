@@ -32,5 +32,6 @@ CREATE TABLE identity_providers
     jwks_uri               VARCHAR(255) NOT NULL,
     scopes_supported       VARCHAR(255) NOT NULL,
 
-    enabled                BOOLEAN      NOT NULL DEFAULT true
+    enabled                BOOLEAN      NOT NULL DEFAULT true,
+    primary_provider       BOOLEAN      NOT NULL DEFAULT false
 );
