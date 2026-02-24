@@ -6,7 +6,7 @@ import com.cloudrader.inventarium.model.Tenant
 
 fun Tenant.toDto(): TenantDto {
     return TenantDto(
-        id = this.id,
+        id = requireNotNull(this.id),
         name = this.name,
         alias = this.alias,
         createdAt = this.createdAt,

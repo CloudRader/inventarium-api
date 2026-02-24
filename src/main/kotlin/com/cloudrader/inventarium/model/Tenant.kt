@@ -7,12 +7,12 @@ import java.time.Instant
 import java.util.UUID
 
 @Table(name = "tenants")
-class Tenant(
-    @Id val id: UUID = UUID.randomUUID(),
+data class Tenant(
+    @Id val id: UUID? = null,
     @Column("name")
-    val name: String = "",
+    val name: String,
     @Column("alias")
-    val alias: String = "",
+    val alias: String,
     @Column("created_at")
     val createdAt: Instant = Instant.now(),
     @Column("updated_at")

@@ -30,6 +30,6 @@ class IdentityProviderService(
         val encryptedSecret = secretEncryptionService.encrypt(identityProviderCreate.clientSecret)
 
         return identityProviderRepository.save(identityProviderCreate
-            .toModel(tenant.id, encryptedSecret, identityProviderInfo)).awaitSingle().toDto()
+            .toModel(requireNotNull(tenant.id), encryptedSecret, identityProviderInfo)).awaitSingle().toDto()
     }
 }
