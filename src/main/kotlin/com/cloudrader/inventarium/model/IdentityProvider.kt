@@ -6,40 +6,40 @@ import org.springframework.data.relational.core.mapping.Column
 import java.util.UUID
 
 @Table(name = "identity_providers")
-class IdentityProvider(
-    @Id val id: UUID = UUID.randomUUID(),
+data class IdentityProvider(
+    @Id val id: UUID? = null,
 
     @Column("tenant_id")
-    val tenantId: UUID = UUID.randomUUID(),
+    val tenantId: UUID,
 
     @Column("type")
-    var type: String = "",
+    var type: String,
     @Column("name")
-    var name: String = "",
+    var name: String,
     @Column("alias")
-    var alias: String = "",
+    var alias: String,
 
     @Column("client_id")
-    val clientId: String = "",
+    val clientId: String,
     @Column("client_secret_hashed")
-    val clientSecretHashed: String = "",
+    val clientSecretHashed: String,
 
     @Column("configuration_endpoint")
-    val configurationEndpoint: String = "",
+    val configurationEndpoint: String,
     @Column("issuer")
-    val issuer: String = "",
+    val issuer: String,
     @Column("authorization_endpoint")
-    val authorizationEndpoint: String = "",
+    val authorizationEndpoint: String,
     @Column("token_endpoint")
-    val tokenEndpoint: String = "",
+    val tokenEndpoint: String,
     @Column("userinfo_endpoint")
-    val userinfoEndpoint: String = "",
+    val userinfoEndpoint: String,
     @Column("end_session_endpoint")
-    val endSessionEndpoint: String = "",
+    val endSessionEndpoint: String,
     @Column("jwks_uri")
-    val jwksUri: String = "",
+    val jwksUri: String,
     @Column("scopes_supported")
-    val scopesSupported: String = "",
+    val scopesSupported: String,
 
     @Column("enabled")
     val enabled: Boolean = true,

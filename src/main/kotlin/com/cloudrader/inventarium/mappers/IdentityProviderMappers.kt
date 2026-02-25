@@ -8,7 +8,7 @@ import java.util.UUID
 
 fun IdentityProvider.toDto(): IdentityProviderDto {
     return IdentityProviderDto(
-        id = this.id,
+        id = requireNotNull(this.id),
         tenantId = this.tenantId,
         type = this.type,
         name = this.name,

@@ -4,10 +4,12 @@ import com.cloudrader.inventarium.adapter.repository.IdentityProviderRepository
 import com.cloudrader.inventarium.config.exception.NotFoundException
 import com.cloudrader.inventarium.dto.identityprovider.IdentityProviderIssuerInfoDto
 import com.cloudrader.inventarium.dto.user.UserInfoOpenIdDto
+import kotlinx.coroutines.reactor.awaitSingle
 import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToMono
+import reactor.core.publisher.Mono
 
 @Service
 class OpenIdConnectClient(
@@ -15,12 +17,18 @@ class OpenIdConnectClient(
     private val identityProviderRepository: IdentityProviderRepository,
 ): IdentityProviderClient {
 
-    override suspend fun getIssuerInfo(configurationEndpoint: String): IdentityProviderIssuerInfoDto {
+    override suspend fun getIssuerInfo(
+        configurationEndpoint: String
+    ): IdentityProviderIssuerInfoDto {
+
         return webClient.get()
             .uri(configurationEndpoint)
             .retrieve()
+            .onStatus({ it.isError }) {
+                Mono.error(IllegalStateException("Bad gateway from IdP"))
+            }
             .bodyToMono<IdentityProviderIssuerInfoDto>()
-            .block() ?: throw IllegalStateException("Bad gateway from IdP")
+            .awaitSingle()
     }
 
     override suspend fun decodeToken(token: String): Map<String, Any> {
@@ -37,8 +45,11 @@ class OpenIdConnectClient(
                 headers.setBearerAuth(token)
             }
             .retrieve()
+            .onStatus({ it.isError }) {
+                Mono.error(IllegalStateException("Empty response from IdP"))
+            }
             .bodyToMono<UserInfoOpenIdDto>()
-            .block() ?: throw IllegalStateException("Empty response from IdP")
+            .awaitSingle()
     }
 
     override suspend fun logout(refreshToken: String) {
