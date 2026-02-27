@@ -4,12 +4,11 @@ import com.cloudrader.inventarium.adapter.identityprovider.OpenIdConnectClient
 import com.cloudrader.inventarium.adapter.repository.IdentityProviderRepository
 import com.cloudrader.inventarium.adapter.repository.TenantRepository
 import com.cloudrader.inventarium.config.exception.NotFoundException
+import com.cloudrader.inventarium.config.logging.log
 import com.cloudrader.inventarium.dto.identityprovider.IdentityProviderCreateDto
 import com.cloudrader.inventarium.mappers.toDto
 import com.cloudrader.inventarium.mappers.toModel
 import com.cloudrader.inventarium.utils.security.AesSecretEncryptionService
-import kotlinx.coroutines.reactor.awaitSingle
-import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Service
 
 @Service
@@ -25,11 +24,15 @@ class IdentityProviderService(
         )
 
         val tenant = tenantRepository.findByAlias(tenantAlias)
-            .awaitSingleOrNull() ?: throw NotFoundException("Tenant with alias '$tenantAlias' not found")
+
+        if (tenant == null) {
+            log.warn("Tenant with alias={} not found", tenantAlias)
+            throw NotFoundException("Tenant with alias '$tenantAlias' not found")
+        }
 
         val encryptedSecret = secretEncryptionService.encrypt(identityProviderCreate.clientSecret)
 
         return identityProviderRepository.save(identityProviderCreate
-            .toModel(requireNotNull(tenant.id), encryptedSecret, identityProviderInfo)).awaitSingle().toDto()
+            .toModel(requireNotNull(tenant.id), encryptedSecret, identityProviderInfo)).toDto()
     }
 }

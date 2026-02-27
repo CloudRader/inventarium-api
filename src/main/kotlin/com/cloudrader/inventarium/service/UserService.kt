@@ -5,7 +5,6 @@ import com.cloudrader.inventarium.config.exception.NotFoundException
 import com.cloudrader.inventarium.config.logging.log
 import com.cloudrader.inventarium.dto.user.UserDto
 import com.cloudrader.inventarium.mappers.toDto
-import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Service
 
 @Service
@@ -16,10 +15,11 @@ class UserService(
         log.info("Fetching user with id={}", id)
 
         val user = userRepository.findById(id)
-            .awaitSingleOrNull() ?: run {
-                log.warn("User with id={} not found", id)
-                throw NotFoundException("User with id=$id not found")
-            }
+
+        if (user == null) {
+            log.warn("User with id={} not found", id)
+            throw NotFoundException("User with id=$id not found")
+        }
 
         log.debug("User with id={} found successfully", id)
         return user.toDto()

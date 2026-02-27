@@ -1,9 +1,8 @@
 package com.cloudrader.inventarium.adapter.repository
 
 import com.cloudrader.inventarium.model.User
-import org.springframework.data.repository.reactive.ReactiveCrudRepository
-import reactor.core.publisher.Mono
+import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
-interface UserRepository: ReactiveCrudRepository<User, String> {
-    fun findByEmail(email: String): Mono<User>
+interface UserRepository: CoroutineCrudRepository<User, String> {
+    suspend fun findByEmail(email: String): User?
 }
