@@ -37,11 +37,10 @@ class OpenIdConnectClient(
 
     override suspend fun getUserInfo(tenantAlias: String, token: String): UserInfoOpenIdDto {
         val userInfoEndpoint = identityProviderRepository.findByAlias(tenantAlias)
-
-        if (userInfoEndpoint == null) {
-            log.warn("Tenant with alias={} not found", tenantAlias)
-            throw NotFoundException("Tenant with alias '$tenantAlias' not found")
-        }
+            ?: run {
+                log.warn("Tenant with alias={} not found", tenantAlias)
+                throw NotFoundException("Tenant with alias '$tenantAlias' not found")
+            }
 
         return webClient.get()
             .uri(userInfoEndpoint.userinfoEndpoint)

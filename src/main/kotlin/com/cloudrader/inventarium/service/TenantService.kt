@@ -29,11 +29,10 @@ class TenantService(
 
     suspend fun get(id: UUID): TenantDto {
         val tenant = tenantRepository.findById(id)
-
-        if (tenant == null) {
-            log.warn("User with id={} not found", id)
-            throw NotFoundException("Tenant with id=$id not found")
-        }
+            ?: run {
+                log.warn("User with id={} not found", id)
+                throw NotFoundException("Tenant with id=$id not found")
+            }
 
         log.debug("User with id={} found successfully", id)
         return tenant.toDto()
@@ -41,11 +40,10 @@ class TenantService(
 
     suspend fun getByAlias(alias: String): TenantDto {
         val tenant = tenantRepository.findByAlias(alias)
-
-        if (tenant == null) {
-            log.warn("User with alias={} not found", alias)
-            throw NotFoundException("Tenant with alias=$alias not found")
-        }
+            ?: run {
+                log.warn("User with alias={} not found", alias)
+                throw NotFoundException("Tenant with alias=$alias not found")
+            }
 
         log.debug("User with alias={} found successfully", alias)
         return tenant.toDto()
@@ -53,11 +51,10 @@ class TenantService(
 
     suspend fun update(id: UUID, updateDto: TenantUpdateDto): TenantDto {
         val existingTenant = tenantRepository.findById(id)
-
-        if (existingTenant == null) {
-            log.warn("Tenant with id={} not found", id)
-            throw NotFoundException("Tenant with id=$id not found")
-        }
+            ?: run {
+                log.warn("Tenant with id={} not found", id)
+                throw NotFoundException("Tenant with id=$id not found")
+            }
 
         val updatedTenant = existingTenant.updateFrom(updateDto)
 

@@ -15,11 +15,10 @@ class UserService(
         log.info("Fetching user with id={}", id)
 
         val user = userRepository.findById(id)
-
-        if (user == null) {
-            log.warn("User with id={} not found", id)
-            throw NotFoundException("User with id=$id not found")
-        }
+            ?: run {
+                log.warn("User with id={} not found", id)
+                throw NotFoundException("User with id=$id not found")
+            }
 
         log.debug("User with id={} found successfully", id)
         return user.toDto()

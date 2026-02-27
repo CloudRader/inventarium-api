@@ -24,11 +24,10 @@ class IdentityProviderService(
         )
 
         val tenant = tenantRepository.findByAlias(tenantAlias)
-
-        if (tenant == null) {
-            log.warn("Tenant with alias={} not found", tenantAlias)
-            throw NotFoundException("Tenant with alias '$tenantAlias' not found")
-        }
+            ?: run {
+                log.warn("Tenant with alias={} not found", tenantAlias)
+                throw NotFoundException("Tenant with alias '$tenantAlias' not found")
+            }
 
         val encryptedSecret = secretEncryptionService.encrypt(identityProviderCreate.clientSecret)
 
