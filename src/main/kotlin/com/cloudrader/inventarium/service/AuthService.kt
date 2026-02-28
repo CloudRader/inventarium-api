@@ -1,7 +1,7 @@
 package com.cloudrader.inventarium.service
 
 import com.cloudrader.inventarium.adapter.identityprovider.OpenIdConnectClient
-import com.cloudrader.inventarium.adapter.repository.UserRepository
+import com.cloudrader.inventarium.adapter.repository.user.UserRepository
 import com.cloudrader.inventarium.dto.user.UserDto
 import com.cloudrader.inventarium.mappers.toDto
 import com.cloudrader.inventarium.mappers.toModel
@@ -21,6 +21,6 @@ class AuthService(
             return getUser.toDto()
         }
 
-        return userRepository.save(userInfo.toModel()).toDto()
+        return userRepository.upsert(userInfo.toModel()).toDto()
     }
 }

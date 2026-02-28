@@ -1,6 +1,6 @@
 package com.cloudrader.inventarium.controller.v1
 
-import com.cloudrader.inventarium.adapter.repository.IdentityProviderRepository
+import com.cloudrader.inventarium.adapter.repository.identityprovider.IdentityProviderRepository
 import com.cloudrader.inventarium.controller.responces.ConflictResponse
 import com.cloudrader.inventarium.controller.responces.NotFoundResponse
 import com.cloudrader.inventarium.dto.identityprovider.IdentityProviderCreateDto

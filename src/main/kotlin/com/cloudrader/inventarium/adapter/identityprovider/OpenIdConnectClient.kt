@@ -1,6 +1,6 @@
 package com.cloudrader.inventarium.adapter.identityprovider
 
-import com.cloudrader.inventarium.adapter.repository.IdentityProviderRepository
+import com.cloudrader.inventarium.adapter.repository.identityprovider.IdentityProviderRepository
 import com.cloudrader.inventarium.config.exception.NotFoundException
 import com.cloudrader.inventarium.config.logging.log
 import com.cloudrader.inventarium.dto.identityprovider.IdentityProviderIssuerInfoDto
@@ -36,14 +36,14 @@ class OpenIdConnectClient(
     }
 
     override suspend fun getUserInfo(tenantAlias: String, token: String): UserInfoOpenIdDto {
-        val userInfoEndpoint = identityProviderRepository.findByAlias(tenantAlias)
+        val identityProvider = identityProviderRepository.findByTenantAlias(tenantAlias)
             ?: run {
                 log.warn("Tenant with alias={} not found", tenantAlias)
                 throw NotFoundException("Tenant with alias '$tenantAlias' not found")
             }
 
         return webClient.get()
-            .uri(userInfoEndpoint.userinfoEndpoint)
+            .uri(identityProvider.userinfoEndpoint)
             .headers { headers ->
                 headers.setBearerAuth(token)
             }

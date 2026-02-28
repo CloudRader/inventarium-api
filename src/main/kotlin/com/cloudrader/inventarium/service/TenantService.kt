@@ -1,6 +1,6 @@
 package com.cloudrader.inventarium.service
 
-import com.cloudrader.inventarium.adapter.repository.TenantRepository
+import com.cloudrader.inventarium.adapter.repository.tenant.TenantRepository
 import com.cloudrader.inventarium.config.exception.NotFoundException
 import com.cloudrader.inventarium.config.logging.log
 import com.cloudrader.inventarium.dto.tenant.TenantCreateDto

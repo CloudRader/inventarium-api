@@ -1,4 +1,4 @@
-package com.cloudrader.inventarium.adapter.repository
+package com.cloudrader.inventarium.adapter.repository.tenant
 
 import com.cloudrader.inventarium.model.Tenant
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
