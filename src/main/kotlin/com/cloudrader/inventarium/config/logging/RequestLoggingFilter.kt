@@ -1,6 +1,7 @@
 package com.cloudrader.inventarium.config.logging
 
 import org.jboss.logging.MDC
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.server.ServerWebExchange
 import org.springframework.web.server.WebFilter
@@ -32,7 +33,7 @@ class RequestLoggingFilter : WebFilter {
                     "HTTP {} {} -> {} ({} ms), requestId={}",
                     request.method,
                     request.path.value(),
-                    response.statusCode?.value() ?: 200,
+                    response.statusCode?.value() ?: HttpStatus.OK.value(),
                     duration,
                     requestId
                 )
