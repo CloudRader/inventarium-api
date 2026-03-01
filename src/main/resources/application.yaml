@@ -32,6 +32,18 @@ security:
   encryption:
     master-key: ${APP_MASTER_KEY}
 
+tenant:
+  name: Master
+  alias: master
+
+identityprovider:
+  type: oidc
+  name: ${OIDC_NAME}
+  alias: ${OIDC_ALIAS}
+  configurationEndpoint: ${OIDC_CLIENT_CONFIG_URL}
+  clientId: ${OIDC_CLIENT_ID}
+  clientSecret: ${OIDC_CLIENT_SECRET}
+
 oidc:
   client-id: ${OIDC_CLIENT_ID}
   client-secret: ${OIDC_CLIENT_SECRET}
