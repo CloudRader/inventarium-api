@@ -18,6 +18,34 @@ CREATE TABLE tenants
     updated_at TIMESTAMPTZ
 );
 
+CREATE TABLE audit_logs
+(
+    id          UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
+
+    tenant_id   UUID        NOT NULL REFERENCES tenants (id),
+
+    user_id     VARCHAR(100) REFERENCES users (id),
+
+    action      VARCHAR(50) NOT NULL,
+
+    entity_type VARCHAR(50) NOT NULL,
+
+    entity_id   UUID,
+
+    timestamp   TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    metadata    JSONB
+);
+
+CREATE INDEX idx_audit_tenant_time
+    ON audit_logs (tenant_id, timestamp DESC);
+
+CREATE INDEX idx_audit_entity
+    ON audit_logs (entity_type, entity_id);
+
+CREATE INDEX idx_audit_user
+    ON audit_logs (user_id);
+
 CREATE TABLE identity_providers
 (
     id                     UUID PRIMARY KEY      DEFAULT gen_random_uuid(),
