@@ -1,13 +1,13 @@
 package com.cloudrader.inventarium.service
 
-import com.cloudrader.inventarium.adapter.identityprovider.OpenIdConnectClient
-import com.cloudrader.inventarium.adapter.repository.identityprovider.IdentityProviderRepository
-import com.cloudrader.inventarium.adapter.repository.tenant.TenantRepository
+import com.cloudrader.inventarium.infrastructure.identityprovider.OpenIdConnectClient
+import com.cloudrader.inventarium.infrastructure.repository.identityprovider.IdentityProviderRepository
+import com.cloudrader.inventarium.infrastructure.repository.tenant.TenantRepository
 import com.cloudrader.inventarium.config.exception.NotFoundException
 import com.cloudrader.inventarium.config.logging.log
-import com.cloudrader.inventarium.dto.identityprovider.IdentityProviderCreateDto
-import com.cloudrader.inventarium.mappers.toDto
-import com.cloudrader.inventarium.mappers.toModel
+import com.cloudrader.inventarium.domain.dto.identityprovider.IdentityProviderCreateDto
+import com.cloudrader.inventarium.domain.mappers.toDto
+import com.cloudrader.inventarium.domain.mappers.toModel
 import com.cloudrader.inventarium.utils.security.AesSecretEncryptionService
 import org.springframework.stereotype.Service
 

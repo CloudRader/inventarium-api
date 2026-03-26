@@ -1,7 +1,7 @@
 package com.cloudrader.inventarium.service
 
-import com.cloudrader.inventarium.adapter.repository.auditlog.AuditLogRepository
-import com.cloudrader.inventarium.model.AuditLog
+import com.cloudrader.inventarium.infrastructure.repository.auditlog.AuditLogRepository
+import com.cloudrader.inventarium.domain.model.AuditLog
 import kotlinx.coroutines.flow.Flow
 import org.springframework.stereotype.Service
 import java.time.Instant

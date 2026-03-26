@@ -1,12 +1,12 @@
 package com.cloudrader.inventarium.config.initializer
 
-import com.cloudrader.inventarium.adapter.identityprovider.OpenIdConnectClient
-import com.cloudrader.inventarium.adapter.repository.identityprovider.IdentityProviderRepository
-import com.cloudrader.inventarium.adapter.repository.tenant.TenantRepository
+import com.cloudrader.inventarium.infrastructure.identityprovider.OpenIdConnectClient
+import com.cloudrader.inventarium.infrastructure.repository.identityprovider.IdentityProviderRepository
+import com.cloudrader.inventarium.infrastructure.repository.tenant.TenantRepository
 import com.cloudrader.inventarium.config.properties.PrimaryIdentityProviderProperties
 import com.cloudrader.inventarium.config.properties.PrimaryTenantProperties
-import com.cloudrader.inventarium.model.IdentityProvider
-import com.cloudrader.inventarium.model.Tenant
+import com.cloudrader.inventarium.domain.model.IdentityProvider
+import com.cloudrader.inventarium.domain.model.Tenant
 import com.cloudrader.inventarium.utils.security.SecretEncryptionService
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener

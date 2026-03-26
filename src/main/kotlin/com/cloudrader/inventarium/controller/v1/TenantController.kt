@@ -3,12 +3,10 @@ package com.cloudrader.inventarium.controller.v1
 import com.cloudrader.inventarium.controller.responces.AuthenticatedAccount
 import com.cloudrader.inventarium.controller.responces.ConflictResponse
 import com.cloudrader.inventarium.controller.responces.NotFoundResponse
-import com.cloudrader.inventarium.dto.tenant.TenantCreateDto
-import com.cloudrader.inventarium.dto.tenant.TenantDto
-import com.cloudrader.inventarium.dto.tenant.TenantUpdateDto
+import com.cloudrader.inventarium.domain.dto.tenant.TenantCreateDto
+import com.cloudrader.inventarium.domain.dto.tenant.TenantDto
+import com.cloudrader.inventarium.domain.dto.tenant.TenantUpdateDto
 import com.cloudrader.inventarium.service.TenantService
-import io.swagger.v3.oas.annotations.Operation
-import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping

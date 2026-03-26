@@ -1,10 +1,10 @@
 package com.cloudrader.inventarium.service
 
-import com.cloudrader.inventarium.adapter.repository.user.UserRepository
+import com.cloudrader.inventarium.infrastructure.repository.user.UserRepository
 import com.cloudrader.inventarium.config.exception.NotFoundException
 import com.cloudrader.inventarium.config.logging.log
-import com.cloudrader.inventarium.dto.user.UserDto
-import com.cloudrader.inventarium.mappers.toDto
+import com.cloudrader.inventarium.domain.dto.user.UserDto
+import com.cloudrader.inventarium.domain.mappers.toDto
 import org.springframework.stereotype.Service
 
 @Service

@@ -1,14 +1,14 @@
 package com.cloudrader.inventarium.service
 
-import com.cloudrader.inventarium.adapter.repository.tenant.TenantRepository
+import com.cloudrader.inventarium.infrastructure.repository.tenant.TenantRepository
 import com.cloudrader.inventarium.config.exception.NotFoundException
 import com.cloudrader.inventarium.config.logging.log
-import com.cloudrader.inventarium.dto.tenant.TenantCreateDto
-import com.cloudrader.inventarium.dto.tenant.TenantDto
-import com.cloudrader.inventarium.dto.tenant.TenantUpdateDto
-import com.cloudrader.inventarium.mappers.toDto
-import com.cloudrader.inventarium.mappers.toModel
-import com.cloudrader.inventarium.mappers.updateFrom
+import com.cloudrader.inventarium.domain.dto.tenant.TenantCreateDto
+import com.cloudrader.inventarium.domain.dto.tenant.TenantDto
+import com.cloudrader.inventarium.domain.dto.tenant.TenantUpdateDto
+import com.cloudrader.inventarium.domain.mappers.toDto
+import com.cloudrader.inventarium.domain.mappers.toModel
+import com.cloudrader.inventarium.domain.mappers.updateFrom
 import kotlinx.coroutines.flow.toList
 import org.springframework.stereotype.Service
 import java.util.UUID

@@ -1,10 +1,10 @@
 package com.cloudrader.inventarium.service
 
-import com.cloudrader.inventarium.adapter.identityprovider.OpenIdConnectClient
-import com.cloudrader.inventarium.adapter.repository.user.UserRepository
-import com.cloudrader.inventarium.dto.user.UserDto
-import com.cloudrader.inventarium.mappers.toDto
-import com.cloudrader.inventarium.mappers.toModel
+import com.cloudrader.inventarium.infrastructure.identityprovider.OpenIdConnectClient
+import com.cloudrader.inventarium.infrastructure.repository.user.UserRepository
+import com.cloudrader.inventarium.domain.dto.user.UserDto
+import com.cloudrader.inventarium.domain.mappers.toDto
+import com.cloudrader.inventarium.domain.mappers.toModel
 import org.springframework.stereotype.Service
 
 @Service
