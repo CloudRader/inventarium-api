@@ -1,0 +1,38 @@
+version: 1
+
+metadata:
+  name: "inventarium-oauth2-provider-blueprint"
+  labels:
+    purpose: "test-oauth2-provider"
+
+entries:
+  # 🔐 OAuth2 Provider
+  - id: inventarium-provider
+    model: authentik_providers_oauth2.oauth2provider
+    state: present
+    identifiers:
+      name: inventarium-provider
+    attrs:
+      name: inventarium-provider
+      client_id: inventarium-client
+      client_secret: supersecret
+      client_type: confidential
+      # Authorization flow (existing slug)
+      authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-explicit-consent]]
+      # Invalidation flow (required)
+      invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+      redirect_uris:
+        - matching_mode: strict
+          url: http://localhost:8080/swagger-ui/oauth2-redirect.html
+
+  # 🌐 Application using the OAuth2 provider
+  - id: inventarium
+    model: authentik_core.application
+    state: present
+    identifiers:
+      slug: inventarium
+    attrs:
+      name: Inventarium
+      slug: inventarium
+      provider: !KeyOf inventarium-provider
+      policy_engine_mode: any

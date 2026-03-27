@@ -6,9 +6,9 @@ services:
     env_file:
       - .env
     environment:
-      POSTGRES_DB: ${PG_DB:-authentik}
-      POSTGRES_PASSWORD: ${OIDC_POSTGRES_PASSWORD:?database password required}
-      POSTGRES_USER: ${PG_USER:-authentik}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     healthcheck:
       interval: 30s
       retries: 5
@@ -40,9 +40,13 @@ services:
       AUTHENTIK_POSTGRESQL__PASSWORD: ${OIDC_POSTGRES_PASSWORD}
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
       AUTHENTIK_SECRET_KEY: ${OIDC_SECRET_KEY:?secret key required}
+#      AUTHENTIK_BOOTSTRAP_PASSWORD: admin
+#      AUTHENTIK_BOOTSTRAP_TOKEN: secret-token
+#      AUTHENTIK_BOOTSTRAP_EMAIL: akadmin@example.com
     volumes:
       - ./data:/data
       - ./custom-templates:/templates
+      - ./blueprints:/blueprints
     ports:
       - ${COMPOSE_PORT_HTTP:-9000}:9000
       - ${COMPOSE_PORT_HTTPS:-9443}:9443
@@ -70,38 +74,39 @@ services:
       - ./data:/data
       - ./certs:/certs
       - ./custom-templates:/templates
+      - ./blueprints:/blueprints
     networks:
       - internal
 
-  inventarium-api:
-    container_name: inventarium-api
-    build:
-      context: .
-      dockerfile: Dockerfile
-    environment:
-      APP_NAME: ${APP_NAME}
-      LOG_LEVEL: ${LOG_LEVEL}
-
-      POSTGRES_HOST: postgresql
-      POSTGRES_PORT: ${POSTGRES_PORT}
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-
-      OIDC_POSTGRES_PASSWORD: ${OIDC_POSTGRES_PASSWORD}
-      OIDC_SECRET_KEY: ${OIDC_SECRET_KEY}
-      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID}
-      OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET}
-      OIDC_ISSUER_URI: ${OIDC_ISSUER_URI}
-      OIDC_USER_INFO: ${OIDC_USER_INFO}
-      OIDC_AUTH_URL: ${OIDC_AUTH_URL}
-      OIDC_TOKEN_URL: ${OIDC_TOKEN_URL}
-      OIDC_SCOPES: ${OIDC_SCOPES}
-    restart: on-failure
-    ports:
-      - "8080:8080"
-    networks:
-      - internal
+#  inventarium-api:
+#    container_name: inventarium-api
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    environment:
+#      APP_NAME: ${APP_NAME}
+#      LOG_LEVEL: ${LOG_LEVEL}
+#
+#      POSTGRES_HOST: postgresql
+#      POSTGRES_PORT: ${POSTGRES_PORT}
+#      POSTGRES_DB: ${POSTGRES_DB}
+#      POSTGRES_USER: ${POSTGRES_USER}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#
+#      OIDC_POSTGRES_PASSWORD: ${OIDC_POSTGRES_PASSWORD}
+#      OIDC_SECRET_KEY: ${OIDC_SECRET_KEY}
+#      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID}
+#      OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET}
+#      OIDC_ISSUER_URI: ${OIDC_ISSUER_URI}
+#      OIDC_USER_INFO: ${OIDC_USER_INFO}
+#      OIDC_AUTH_URL: ${OIDC_AUTH_URL}
+#      OIDC_TOKEN_URL: ${OIDC_TOKEN_URL}
+#      OIDC_SCOPES: ${OIDC_SCOPES}
+#    restart: on-failure
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - internal
 
 networks:
   internal:
