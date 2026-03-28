@@ -40,13 +40,9 @@ services:
       AUTHENTIK_POSTGRESQL__PASSWORD: ${OIDC_POSTGRES_PASSWORD}
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
       AUTHENTIK_SECRET_KEY: ${OIDC_SECRET_KEY:?secret key required}
-#      AUTHENTIK_BOOTSTRAP_PASSWORD: admin
-#      AUTHENTIK_BOOTSTRAP_TOKEN: secret-token
-#      AUTHENTIK_BOOTSTRAP_EMAIL: akadmin@example.com
     volumes:
       - ./data:/data
       - ./custom-templates:/templates
-      - ./blueprints:/blueprints
     ports:
       - ${COMPOSE_PORT_HTTP:-9000}:9000
       - ${COMPOSE_PORT_HTTPS:-9443}:9443
@@ -68,13 +64,16 @@ services:
       AUTHENTIK_POSTGRESQL__PASSWORD: ${OIDC_POSTGRES_PASSWORD}
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
       AUTHENTIK_SECRET_KEY: ${OIDC_SECRET_KEY:?secret key required}
+      AUTHENTIK_BOOTSTRAP_PASSWORD: admin
+      AUTHENTIK_BOOTSTRAP_TOKEN: secret-token
+      AUTHENTIK_BOOTSTRAP_EMAIL: akadmin@example.com
     user: root
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data:/data
       - ./certs:/certs
       - ./custom-templates:/templates
-      - ./blueprints:/blueprints
+      - ./blueprints:/blueprints/custom
     networks:
       - internal
 

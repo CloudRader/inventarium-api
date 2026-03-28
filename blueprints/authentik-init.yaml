@@ -1,9 +1,9 @@
 version: 1
 
 metadata:
-  name: "inventarium-oauth2-provider-blueprint"
+  name: "Custom - Inventarium OIDC Provider and Aplication"
   labels:
-    purpose: "test-oauth2-provider"
+    purpose: "dev-oidc-provider"
 
 entries:
   # 🔐 OAuth2 Provider
