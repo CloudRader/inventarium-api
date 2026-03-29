@@ -55,7 +55,8 @@ class DataInitializer(
                         userinfoEndpoint = identityProviderInfo.userinfoEndpoint,
                         endSessionEndpoint = identityProviderInfo.endSessionEndpoint,
                         jwksUri = identityProviderInfo.jwksUri,
-                        scopesSupported = identityProviderInfo.scopesSupported.joinToString(",")
+                        scopesSupported = identityProviderInfo.scopesSupported.joinToString(","),
+                        primaryProvider = true
                     )
                 )
             }
