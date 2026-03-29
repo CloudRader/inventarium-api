@@ -1,12 +1,3 @@
-CREATE TABLE users
-(
-    id          VARCHAR(100) PRIMARY KEY,
-    username    VARCHAR(32) NOT NULL UNIQUE,
-    first_name  VARCHAR(32) NOT NULL,
-    second_name VARCHAR(32) NOT NULL,
-    email       VARCHAR(100) NOT NULL UNIQUE
-);
-
 CREATE TABLE tenants
 (
     id         UUID PRIMARY KEY      DEFAULT gen_random_uuid(),
@@ -18,22 +9,28 @@ CREATE TABLE tenants
     updated_at TIMESTAMPTZ
 );
 
+CREATE TABLE users
+(
+    id          VARCHAR(100) PRIMARY KEY,
+    tenant_id   UUID         NOT NULL REFERENCES tenants (id),
+    username    VARCHAR(32)  NOT NULL UNIQUE,
+    first_name  VARCHAR(32)  NOT NULL,
+    second_name VARCHAR(32)  NOT NULL,
+    email       VARCHAR(100) NOT NULL UNIQUE,
+    created_at  TIMESTAMPTZ  NOT NULL DEFAULT now()
+);
+
 CREATE TABLE audit_logs
 (
     id          UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
 
     tenant_id   UUID        NOT NULL REFERENCES tenants (id),
-
     user_id     VARCHAR(100) REFERENCES users (id),
 
     action      VARCHAR(50) NOT NULL,
-
     entity_type VARCHAR(50) NOT NULL,
-
     entity_id   UUID,
-
     timestamp   TIMESTAMPTZ NOT NULL DEFAULT now(),
-
     metadata    JSONB
 );
 

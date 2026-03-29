@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 class UserService(
     private val userRepository: UserRepository,
 ) {
-    suspend fun getUser(id: String): UserDto {
+    suspend fun getMe(id: String): UserDto {
         log.info("Fetching user with id={}", id)
 
         val user = userRepository.findById(id)

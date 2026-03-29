@@ -24,6 +24,6 @@ class UserController(
     suspend fun getMe(
         @AuthenticationPrincipal jwt: Jwt,
     ): UserDto {
-        return userService.getUser(jwt.claims["sub"].toString())
+        return userService.getMe(jwt.claims["sub"].toString())
     }
 }
